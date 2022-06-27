@@ -1,0 +1,7 @@
+1. Geben Sie eine Liste laufender Prozesse aus
+2. Testen Sie die Verbindung zu google.com, ohne ping zu verwenden
+3. Listen Sie alle PS-Befehle auf, welche vom Typ cmdlet sind
+4. Geben Sie alle Aliase aus
+5. Geben Sie alle Prozesse aus, deren Name mit p beginnt
+6. Legen Sie ein neues Verzeichnis mit einem -Item-Befehl an mit dem Namen MyFolderTest
+7. Löschen Sie das in 6 angelegte Verzeichnis wieder

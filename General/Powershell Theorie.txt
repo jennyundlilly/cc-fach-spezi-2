@@ -1,0 +1,288 @@
+PowerShell
+
+
+	-> Alle PowerShell-Ansätze basieren im Hintergrund auf den .NET-Framework
+	
+	-> Ursprünglich nur Windows Powershell
+	
+	-> Seit .NET 6.0 -> Open Source....Schaffung von .NET Core -> Die Powershell basiert auf .NET Core
+	
+	-> Zu installieren: Powershell, Windows Terminal, VSCode
+	
+-------------------------------------------------------------------------
+
+Was kann man in einem PS-Terminal absetzen?
+
+	-> Befehle:
+	
+		-> Cmdlets
+		
+			- nativ implementiert in .NET-eigenen Sprachen
+			- nur innerhalb der PS benutzbar
+			- Haben IMMER folgende Befehlsstruktur:
+			
+				Verb-Nomen
+			
+		-> Functions
+		
+			- implementiert in der PS-eigenen Skriptsprache
+			
+			
+		-> Applications
+		
+			- man kann auch direkt bereits installierte Anwendungen in der PS ausführen
+			- & 'C:\Programme\eclipse\eclipse.exe'
+			
+	
+		-> Methods
+		
+			- .NET-native Methoden kann man in der PS auch direkt aufrufen
+			
+----------------------------------------------------------------------------------------------------
+Arbeiten mit der PS-Hilfe:
+
+	-> Das Cmdlet Get-Help:
+	
+		-> Liefert eine Kurzfassung der Befehlshilfe
+		
+		-> Komplette Hilfe liefern:
+		
+			Get-Help <befehlsname> -Full
+			
+		-> Online-Hilfe holen:
+
+			Get-Help <befehlsname> -Online
+			
+		-> Nur Parameter eines Befehls anzeigen:	
+		
+			Get-Help <befehlsname> -Parameter *
+			
+			#hole infos zum parameter -Name
+			Get-Help <befehlsname> -Parameter Name
+			
+		-> Beispiele zu einem Befehl holen:
+		
+			Get-Help <befehlsname> -Example
+			
+	
+
+	-> Das Cmdlet Get-Command
+	
+	
+		#die syntax eines bestimmten befhels ausgeben
+		Get-Command Get-help -Syntax
+	
+			
+		-> Befehle gezielt suchen:
+			
+			#suche nach befehlen, die etwas mit event-handling zu tun haben
+			Get-Command -Noun *event*
+			
+			#suche nach event-befehlen nur vom typ cmdlet
+			Get-Command *event* -Type cmdlet
+			
+			
+			#alle befehle, die etwas mit dem holen/lesen von prozessen zu tun haben
+			Get-Command -Verb Get -Noun *process*
+			
+		
+	-> Das Cmdlet Get-Verb:
+	
+		-> Ermöglicht die gezielte Befehlssuche, orientiert an den Befehls-Verben
+		
+			#holt befehlsverben, welche zur befehlsgruppe sicherheit gehören
+			Get-Verb -Group Security
+		
+-----------------------------------------------------------------------------------
+Syntax richtig interpretieren:
+
+	-> Optionale Parameter stehen immer KOMPLETT in eckigen Klammern
+	
+	-> Pflichtparameter stehen nicht KOMPLETT in eckigen Klammern
+	
+	-> Es gibt auch positionale Parameter:
+	
+		-> Diese erkennt man daran, dass der Parameter-Name gesondert in eckigen Klammern steht
+		
+			[-Path] <String[]>		#ein positionaler pflichtparameter
+
+			[[-Stream] <string[]>]	#ein positionaler und optionaler parameter
+			
+			[-Filter <string>]		#ein optionaler, nicht-positionaler(named) parameter
+			
+			-LiteralPath <string[]> #ein nicht-positionaler pflichtparameter
+			
+		
+		-> Für positionale Parameter KANN der Parametername angegeben werden, muss aber nicht
+			
+		-> Wenn es in einem Befehle mehrere positionale Parameter gibt, dann MÜSSEN diese, bei Weglassen des Parameternamen,
+		   an ihrer jeweils vorgesehenen Index-Postion stehen
+		   
+		   
+	-> Wenn Parameter Argumente erwarten, wird deren Typ in spitzen Klammern angegeben
+
+	-> Parameter, welche keine Argumente erwarten(keine Typangabe in spitzen Klammern vorhanden), nennen wir Switch-Parameter(Flags)
+	
+	-> ALLE Befehle in der PS haben die Option, dass die sogenannten CommonParameter eingesetzt werden
+	
+------------------------------------------------------------------------------------------------------------
+Kommentare:
+
+	#dies ist ein einzeiliger kommentar
+	
+	<#
+		Mehrzeiler
+		
+		Bla 
+		
+		Bla
+		
+	#>
+	
+-------------------------------------------------------------------------------------------------------------
+
+Provider:
+
+	-> Provider sind Adapter, welche virtuelle Laufwerke auf verschiedene Datenquellen(DataStore), welche PS zur Verfügung stehen,
+	   mappen
+	   
+	-> Was sind diese Datenquellen?
+	
+		- Dateisystem
+		
+		- Active Directory
+		
+		- Registry
+		
+		- Umgebungsvariablen
+		
+		- ...
+		
+		
+	-> Das Arbeiten mit Providern ermöglicht den einheitlichen Zugriff über gleichartige Befehle auf unterschiedliche Datenquellen
+	
+	
+	-> Alle Elemente in den Datenquellen der Provider werden von der PS einheitlich als "Item" behandelt
+	
+		-> Wenn ein Item "Unter-Items" hat(ein Container ist), dann kann man auf die "Children" per "ChildItem" zugreifen
+		
+	
+----------------------------------------------------------------------------------------------------
+Arbeiten mit dem Dateisystem:
+
+	-> Get-ChildItem
+	
+		- listet alle Children am angegebenen/aktuellen Pfad auf
+		
+		
+	-> New-Item
+	
+		- neue Items anlegen
+		
+----------------------------------------------------------------------------------------------------
+Pipes:
+
+	-> Ergebnisse eines Befehls A werden über die Pipe an einen Befehl B weitergegeben
+	
+	-> In der PS werden innerhalb der Pipe alle Daten in Form von Objekten weiter gegeben!!!
+	
+	-> Das Cmdlet Select-Object:
+	
+		-> Innerhalb der Pipe kann man ein Ergebnis bezogen auf deren Properties(Objekt-Attribute) einschränken
+
+			#alle namen des aktuellen verzeichnisses in einer datei speichern
+			Get-ChildItem | Select-Object -Property Name | Out-File verzeichnisinhalt.txt
+			
+			
+			
+			Get-Process | Select-Object -Property Name, ID, CPU | ConvertTo-Html | Out-File meineProzesse.html
+	
+	
+	-> In einer Pipe können Objekte unterschiedlicher Typen auf einmal vorhanden sein - und sogar von einem PS-Eigenen Typus sein
+	
+	
+	-> Der Common-Parameter -WhatIf ermöglicht es, sich vorher ausgeben zu lassen, was ein bestimmter Befehl anstellen würde:
+	
+		#was würde passieren, wenn ich diesen befehl ausführen würde?
+		Get-Process -Name p* | Stop-Process -WhatIf
+
+
+	-> Das Cmdelet Get-Member:
+	
+		-> Listet alle Member der Objekte aus der Pipe auf, sortiert nach Objekt-Typ
+		
+			-> Member in der PS sind alle Methoden und Properties(Attribute) einer Klasse
+
+
+		#hole alle memeber des ergebnisses von get-process:
+		Get-Process | Get-Member
+		
+		
+		
+			#Get-Process generiert Objekte vom Typ System.Diagnostics.Process -> für das PSObject
+			Get-Process | Stop-Process
+
+	-> Immer, wenn Objekte von einem Befehl A an einen Befehl B gepiped werden, dann werden diese implizit von mindestens einem
+	   Parameter des Befehls B entgegen genommen und verarbeitet
+	   
+		-> Frage: Welcher Parameter/welche Parameter sind das?
+		
+	
+			-> Dafür nutzt PS im Hintergrund das "Pipeline Parameter Binding"
+			
+				-> Für die Auswahl der/des passenden Parameters gibt es 2 Strategien:
+				
+					1. ByValue:
+					
+						- Gibt es im Befehl B einen Parameter, der VOM TYP HER dazu passt, was Befehl A als Ergebnis generiert?
+						- Der entsprechende Parameter muss dann auch dafür ByValue akzeptieren
+						- Wenn man wissen will, von welchem Typ die Ergebnisse des Befehls A sind, kann man sich die Member per 
+						  Get-Member in der Pipe anzeigen lassen
+						  (Get-member kann man IMMER ans Ende einer Pipe setzen)
+						  
+					2. ByPropertyName:
+					
+						- Wenn kein ByValue-Parameter passt, dann wird nach Parametern gesucht, welche denselben Namen haben, wie Parameter
+						  in Befehl A
+						- Wenn diese dann auch ByPropertyName akzeptieren, dann landen die Objekte bei jedem der passenden Parameter
+						
+		
+	-> Das Cmdlet Group-Object:
+
+		-> Häufigkeiten bestimmen und Objekte in der Pipe nach bestimmten Kriterien gruppieren
+		
+		 #gruppiere alle dateien nach datei-endung und gebe deren häufigkeiten aus
+		 Get-ChildItem -File | Group-Object -Property Extension | Sort-Object -Property Count -Descending
+		 
+		 
+	
+	-> Das Cmdlet Measure-Object:
+	
+		-> Alles was zahlenmässig in Pipe-Ergebnissen verwertbar ist, kann Measure-Object verwerten/messen
+		
+		
+		get-childitem -recurse | Measure-Object -Property Length -sum
+		
+		
+		(get-childitem -recurse | Measure-Object -Property Length -sum).Sum / 1gb
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

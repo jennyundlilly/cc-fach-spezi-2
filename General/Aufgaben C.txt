@@ -1,0 +1,7 @@
+1. Erstellen Sie ein neues Verzeichnis mit dem Namen Labs
+2. Erstellen Sie eine leere Datei mit dem Namen /Labs/Test.txt
+3. Kann man mit Set-Item den Inhalt der in 2 angelegten Datei ändern? Gibt es eine Fehlermeldung? Und wenn ja, warum?
+5. Benutzen Sie den Environment-Provider, um sich den Wert der Systemumgebungsvariable PATH ausgeben zu lassen
+4. Benutzen Sie die Hilfe, um die Unterschiede zwischen den Parametern -Filter, -Include und -Exclude des Befehls Get-ChildItem
+   herauszufinden
+   

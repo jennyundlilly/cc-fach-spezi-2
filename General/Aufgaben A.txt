@@ -1,0 +1,26 @@
+Beantworten Sie mit den gegebenen PS-Hilfsbefehlen/Suchbefehlen folgende Fragen:
+
+1. Gibt es Cmdlets, die die Ausgabe anderer Cmdlets in HTML umwandeln können?
+2. Gibt es Cmdlets, die ihre Ausgabe in eine Datei umleiten können?
+3. Wie viele Cmdlets gibt es für die Arbeit mit Prozessen? (Hinweis: Denken Sie daran
+dass alle Cmdlets-Nomen in der Einzahl benannt sind)
+4. Welches Cmdlet können Sie verwenden, um einen PowerShell-Breakpoint zu setzen? (Hinweis: PowerShell-
+spezifische Substantive werden oft mit dem Präfix PS versehen)
+5. Sie haben gelernt, dass Aliase Spitznamen für Cmdlets sind. Welche Cmdlets sind verfügbar?
+können Sie Aliase erstellen, ändern, exportieren oder importieren?
+6. Gibt es eine Möglichkeit, alles, was Sie in der Shell eingeben, per Transkript zu protokollieren und in einer Textdatei zu speichern?
+7. Die Abfrage aller Prozesse kann überwältigend sein. Wie kann man Prozesse anhand des
+Namen des Prozesses abrufen?
+8. Gibt es eine Möglichkeit, Get-Process anzuweisen, den Benutzer zu ermitteln, der den Prozess gestartet hat?
+9. Gibt es eine Möglichkeit, einen Befehl auf einem entfernten Rechner auszuführen? (Hinweis: Invoke ist das Verb für
+das Ausführen von etwas)
+10. Lesen Sie die Hilfedatei für das Cmdlet "Out-File". Die mit diesem Cmdlet erstellten Dateien
+haben standardmäßig eine Zeilenbreite(Zeichen pro Zeile) von wie vielen Zeichen? Gibt es einen Parameter, mit dem
+der es Ihnen ermöglicht, diese Breite zu ändern?
+11. Standardmäßig überschreibt Out-File jede vorhandene Datei, die denselben Dateinamen hat wie
+den, den Sie angeben. Gibt es einen Parameter, der verhindert, dass das Cmdlet eine vorhandene Datei überschreibt?
+12. Wie können Sie eine Liste aller in PowerShell definierten Aliase anzeigen?
+13. Wie lautet die kürzeste Befehlszeile, die Sie eingeben können, um eine Liste von Befehlen mit dem Wort process im Namen abzurufen?
+14. Wie viele Cmdlets sind verfügbar, die mit generischen Objekten umgehen können? (Hinweis:Denken Sie daran, einen Singular wie Objekt zu 
+verwenden und nicht einen Plural wie Objekte)
+15. Wie würden Sie versuchen, zusätzliche/vertiefende Informationen über Arrays herauszufinden?
